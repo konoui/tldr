@@ -20,7 +20,9 @@ type CmdExample struct {
 }
 
 func parsePage(s io.Reader) (*Page, error) {
-	cmdExamples := make([]*CmdExample, 0)
+	// Note tldr does not exceed 8 examples.
+	// https://github.com/tldr-pages/tldr/blob/main/CONTRIBUTING.md
+	cmdExamples := make([]*CmdExample, 0, 8)
 	var cmdName, description, cmd string
 	var cmdDescriptions []string
 	scanner := bufio.NewScanner(s)

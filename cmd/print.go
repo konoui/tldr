@@ -1,6 +1,7 @@
 package cmd
 
 import (
+	"context"
 	"errors"
 	"fmt"
 
@@ -10,14 +11,15 @@ import (
 
 func (cfg *config) printPage(cmds []string) error {
 	// insert update recommendation first
-	if isUpdateWorkflowRecommendEnabled() && awf.Updater().NewerVersionAvailable() {
+	ctx := context.Background()
+	if isUpdateWorkflowRecommendEnabled() && awf.Updater().NewerVersionAvailable(ctx) {
 		awf.Append(
 			alfred.NewItem().
 				Title("Newer tldr wrokflow is available!").
 				Subtitle("Please Enter!").
 				Arg(fmt.Sprintf("--%s --%s", updateWorkflowFlag, confirmFlag)).
 				Variable(nextActionKey, nextActionShell).
-				Icon(alfred.IconAlertNote),
+				Icon(awf.Assets().IconAlertNote()),
 		)
 	}
 
@@ -27,7 +29,7 @@ func (cfg *config) printPage(cmds []string) error {
 				Title("Tldr database is older than 2 weeks").
 				Subtitle("Please Enter!").
 				Arg(fmt.Sprintf("--%s --%s", longUpdateFlag, confirmFlag)).
-				Icon(alfred.IconAlertNote).
+				Icon(awf.Assets().IconAlertNote()).
 				Variable(nextActionKey, nextActionShell),
 		)
 	}

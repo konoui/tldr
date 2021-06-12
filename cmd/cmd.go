@@ -168,11 +168,7 @@ func (cfg *config) setPlatform(ptString string) error {
 }
 
 func (cfg *config) initTldr() error {
-	base, err := alfred.GetDataDir()
-	if err != nil {
-		return err
-	}
-	path := filepath.Join(base, "data")
+	path := filepath.Join(awf.GetDataDir(), "data")
 
 	// Note turn off update option as we update database explicitly
 	opt := &tldr.Options{

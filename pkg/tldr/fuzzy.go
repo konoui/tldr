@@ -33,7 +33,7 @@ func (c Cmds) Len() int {
 	return len(c)
 }
 
-// Search fuzzy search commands by query. This is wrapped filtter
+// Search fuzzy search commands by query.
 func (c Cmds) Search(args []string) Cmds {
 	// Note: We should replace space with highfun before search as a index file format is joined with highfun
 	// e.g.) git checkout -> git-checkout.md

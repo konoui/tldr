@@ -43,6 +43,9 @@ func init() {
 	)
 	awf.SetOut(outStream)
 	awf.SetLog(errStream)
+	if err := awf.OnInitialize(); err != nil {
+		awf.Fatal(err.Error(), err.Error())
+	}
 }
 
 func isUpdateDBRecommendEnabled() bool {

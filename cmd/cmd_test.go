@@ -126,7 +126,7 @@ func TestExecute(t *testing.T) {
 		{
 			name: "specify language flag but commands not found",
 			args: args{
-				command:  "-L ja tar",
+				command:  "-L invalid-lang tar",
 				filepath: testdataPath("test_output_language-empty-result.json"),
 			},
 		},
@@ -328,7 +328,7 @@ func newMockUpdaterSource(t *testing.T, newerVersionAvailable bool) (_ update.Up
 	mockUpdater := mock.NewMockUpdater(ctrl)
 	mockUpdater.EXPECT().Update(gomock.Any()).Return(nil).AnyTimes()
 	mockSource.EXPECT().NewerVersionAvailable(gomock.Any()).Return(newerVersionAvailable, nil).AnyTimes()
-	mockSource.EXPECT().IfNewerVersionAvailable(gomock.Any()).Return(mockUpdater).AnyTimes()
+	mockSource.EXPECT().IfNewerVersionAvailable().Return(mockUpdater).AnyTimes()
 	return mockSource, ctrl.Finish
 }
 
